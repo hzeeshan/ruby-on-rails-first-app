@@ -6,21 +6,38 @@
 <strong>Text</strong>
 <%= @article.text  %>
 </p>
+
+<h2>Comments</h2>
+<% @article.comments.each do |comment|  %>
+  <p>
+  <strong> Commenter: </strong>
+  <%= comment.commenter %> <br>
+  <strong> Comment: </strong>
+  <%= comment.body  %>
+  </p>
+  <p>
+  <%= link_to 'Delete Comment', [comment.article, comment], method: :delete, 
+  data: { confirm: 'Are You sure you want to delete this ?' } %>
+  </p>
+  <%  end  %>
+
+ 
+
 <h2>Add a Comment</h2>
 <%= form_with(model: [@article, @article.comments.build], local:true) do |form|  %>
 
-    <p>
-    <%= form.label :comment %><br>
-    <%= form.text_field :commenter %>
-    </p>
+  <p>
+  <%= form.label :commenter %><br>
+  <%= form.text_field :commenter %>
+  </p>
 
-  <p>
-    <%= form.label:body %><br>
-    <%= form.text_field:body %>
-  </p>
-  <p>
-  <%= form.submit %>
-  </p>
+<p>
+  <%= form.label:body %><br>
+  <%= form.text_field :body %>
+</p>
+<p>
+<%= form.submit %>
+</p>
 
 <% end %>
 
